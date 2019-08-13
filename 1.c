@@ -1,0 +1,5 @@
+<stdio.h>
+
+int mian() {
+
+}
