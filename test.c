@@ -1,9 +1,15 @@
-//
-// Created by akaQin on 2019-08-12.
-//
-#include <stdio.h>
+#include<stdio.h>
+#include<stdlib.h>
 
 int main()
 {
-    printf("%d", getchar() != EOF);
+    putchar(0);
+    putchar(1);
+    putchar(2);
+    putchar(3);
+    putchar(4);
+    putchar(5);
+    putchar(6);
+    putchar(7);
+    putchar(8);
 }

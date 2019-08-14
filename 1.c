@@ -1,5 +1,0 @@
-<stdio.h>
-
-int mian() {
-
-}
