@@ -1,36 +1,21 @@
 #include <stdio.h>
-//#include "getLine.c"
+#include "getLine.c"
+#include "copy.c"
 
-extern int ac;
-
-//
-//#define MAXLINE 100
-//
-//int getLine(char line[], int maxline);
-//void copy(char to[], char from[]);
+#define MAXLINE 100
 
 int main() {
-    ac = 1;
-    printf("%d\n", ac);
-//    int len;
-//    int max = 0;
-//    char line[MAXLINE];
-//    char longest[MAXLINE];
-//    while ((len = getLine(line, MAXLINE)) != 0) {
-//        if (len > max) {
-//            copy(longest, line);
-//            max = len;
-//        }
-//    }
-//
-//    printf("%s", longest);
-    return 0;
-}
-
-void copy(char to[], char from[])
-{
-    int i = 0;
-    while ((to[i] = from[i]) != '\0') {
-        ++i;
+    int maxLen = 0, len;
+    char longestLine[MAXLINE];
+    char line[MAXLINE];
+    while ((len = getLine(line, MAXLINE)) > 0) {
+        if (len > maxLen) {
+            copy(longestLine, line);
+            maxLen = len;
+        }
     }
+    if (maxLen > 0) {
+        printf("%s", longestLine);
+    }
+    return 0;
 }
