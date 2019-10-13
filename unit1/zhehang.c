@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "getLine.c"
+#include "../common/getLine.c"
 
 #define MAXLINE 10
 #define NEWLINE 6

@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "getLine.c"
-#include "copy.c"
+#include "../common/getLine.c"
+#include "../common/copy.c"
 
 #define MAXLINE 100
 

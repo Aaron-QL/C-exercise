@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "getLine.c"
+#include "../common/getLine.c"
 
 
 int atoi(char s[])
