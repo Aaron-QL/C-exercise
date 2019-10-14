@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include "../common/getLine.c"
-
 
 int atoi(char s[])
 {
@@ -9,10 +7,4 @@ int atoi(char s[])
         n = n * 10 + s[i] - '0';
     }
     return n;
-}
-
-int main() {
-    char str[100];
-    getLine(str, 100);
-    printf("%d\n", atoi(str));
 }
