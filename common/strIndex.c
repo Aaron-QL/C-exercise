@@ -14,9 +14,3 @@ int strIndex(char s[], char t[])
 
     return -1;
 }
-
-int main(int argc, char **argv)
-{
-    int c = strIndex(argv[1], argv[2]);
-    printf("%d\n", c);
-}
