@@ -2,14 +2,13 @@
 
 int getLine(char line[], int maxLine)
 {
-    char c;
-    int i;
-    for (i = 0; i < maxLine - 1 && (c = getchar()) != '\n' && c != EOF; i++) {
-        line[i] = c;
+    int c, i;
+    i = 0;
+    while (--maxLine > 0 && (c = getChar()) != '\n' && c != EOF) {
+        line[i++] = c;
     }
     if (c == '\n') {
-        line[i] = c;
-        i++;
+        line[i++] = c;
     }
     line[i] = '\0';
     return i;
