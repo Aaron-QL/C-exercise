@@ -1,8 +1,8 @@
-int strlen(char *str)
+int strlen(char *s)
 {
-    int n;
-    for (n = 0; *str != '\0'; str++) {
-        n++;
+    char *p = s;
+    while (*p != '\0') {
+        p++
     }
-    return n;
+    return p - s;
 }
