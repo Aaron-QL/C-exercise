@@ -1,8 +1,12 @@
 #include <stdio.h>
 
-int main() {
-    void *a = 0x7ffedff9491c;
-    printf("%p\n", &a[0]);
-    printf("%p\n", a);
+#include "common/strcat.c"
 
+int main() {
+    char s[6] = "asd";
+    char *sp = s;
+    char *t = "qqq";
+
+    m_strcat(sp, t);
+    printf("%s\n", s);
 }
