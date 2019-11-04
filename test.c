@@ -1,12 +1,9 @@
 #include <stdio.h>
 
-#include "common/strcat.c"
+#include "common/strend.c"
 
 int main() {
-    char s[6] = "asd";
-    char *sp = s;
-    char *t = "qqq";
-
-    m_strcat(sp, t);
-    printf("%s\n", s);
+    char *s = "asd";
+    char *t = "";
+    printf("%d\n", strend(s, t));
 }
