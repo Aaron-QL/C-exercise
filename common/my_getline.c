@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int getline(char line[], int maxLine)
+int my_getline(char line[], int maxLine)
 {
     int c, i;
     i = 0;

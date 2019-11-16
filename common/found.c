@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "getLine.c"
+#include "my_getline.c"
 #include "strIndex.c"
 
 const int MAXLINE = 100;
