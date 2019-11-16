@@ -7,21 +7,46 @@ static char daytab[2][13] = {
 
 int day_of_year(int year, int month, int day)
 {
-    int i, leap;
+    if (year < 1 || month < 1 || month > 12 || day < 1 || day > 31) {
+        printf("param invalid\n");
+        return -1;
+    }
+    char *p, leap;
     leap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-    for (i = 1; i < month; i++) {
-        day += daytab[leap][i];
+    p = daytab[leap];
+    while (--month) {
+        day += *++p;
     }
     return day;
 }
 
 void month_day(int year, int yearday, int *pmonth, int *pday)
 {
-    int i, leap;
-    leap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
-    for (i = 1; yearday > daytab[leap][i]; i++) {
-        yearday -= daytab[leap][i];
+    if (year < 1 || yearday < 1 || yearday > 365) {
+        printf("param invalid\n");
+        return;
     }
-    *pmonth = i;
+    char *p, leap;
+    leap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    p = daytab[leap];
+    while (yearday > *++p) {
+        yearday -= *p;
+    }
+    *pmonth = p - *(daytab + leap);
     *pday = yearday;
+
+}
+
+int main()
+{
+    int i = day_of_year(2019, 2, 31);
+    printf("%d\n", i);
+
+
+    int m = 0;
+    int d = 0;
+    int *pm = &m;
+    int *pd = &d;
+    month_day(2019, 60, pm, pd);
+    printf("%d %d \n", *pm, *pd);
 }
