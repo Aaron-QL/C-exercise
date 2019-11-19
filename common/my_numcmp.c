@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-int numcmp(char *s1, char *s2)
+int my_numcmp(char *s1, char *s2)
 {
     double v1, v2;
     v1 = atof(s1);
