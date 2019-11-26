@@ -26,10 +26,14 @@ int main(int argc, char *argv[])
         numeric = 1;
     }
 
-    if ((nlines = readlines(lineptr, MAXLINES)) > 0) {
+    if ((nlines = readlines(lineptr, MAXLINES)) >= 0) {
         my_qsort(lineptr, 0, nlines - 1, (int (*)(void *, void *))(numeric ? my_numcmp : my_strcmp));
+        writelines(lineptr, nlines);
+        return 0;
+    } else {
+        printf("input too big to sort\n");
+        return 1;
     }
-
 }
 
 
