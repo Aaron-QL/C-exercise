@@ -12,7 +12,7 @@
 char *lineptr[MAXLINES];
 int reaadlines(char *lineptr[], int maxlines);
 void writelines(char *lineptr[], int maxlines);
-void my_qsort(char *lineptr[], int left, int right, int (*comp)(void *, void *));
+void my_qsort(void *lineptr[], int left, int right, int (*comp)(void *, void *));
 int my_numcmp(char *, char *);
 int my_strcmp(char *, char *);
 char *alloc(int);
@@ -29,7 +29,7 @@ int main(int argc, char *argv[])
 
     if ((nlines = reaadlines(lineptr, MAXLINES)) >= 0) {
         my_qsort(
-                lineptr,
+                (void **)lineptr,
                 0,
                 nlines - 1,
                 (int (*)(void *, void *))(numeric ? my_numcmp : my_strcmp));
@@ -63,12 +63,26 @@ void writelines(char *lineptr[], int nlines)
     }
 }
 
-void my_qsort(char *lineptr[], int left, int right, int (*comp)(void *, void *))
+void my_qsort(void *v[], int left, int right, int (*comp)(void *, void *))
 {
-
+    int i, last;
+    void swap(void *v[], int, int);
+    if (left >= right) {
+        return;;
+    }
+    swap(v, left, (left + right) / 2);
+    last = left;
+    for (i = left + 1; i <= right; i++) {
+        if ((*comp)(v[i], v[left]) < 0) {
+            swap(v, ++last, i);
+        }
+    }
+    swap(v, left, last);
+    my_qsort(v, left, last - 1, comp);
+    my_qsort(v, last + 1, right, comp);
 }
 
-void swap(char *v[], int i, int j)
+void swap(void *v[], int i, int j)
 {
     char * temp;
     temp = v[i];
