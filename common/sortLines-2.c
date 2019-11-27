@@ -10,7 +10,7 @@
 #define MAXLEN 1000 //每个问本行最大长度
 
 char *lineptr[MAXLINES];
-int reaadlines(char *lineptr[], int maxlines);
+int readlines(char *lineptr[], int maxlines);
 void writelines(char *lineptr[], int maxlines);
 void my_qsort(void *lineptr[], int left, int right, int (*comp)(void *, void *));
 int my_numcmp(char *, char *);
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
         numeric = 1;
     }
 
-    if ((nlines = reaadlines(lineptr, MAXLINES)) >= 0) {
+    if ((nlines = readlines(lineptr, MAXLINES)) >= 0) {
         my_qsort(
                 (void **)lineptr,
                 0,
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     }
 }
 
-int reaadlines(char *lineptr[], int maxlines)
+int readlines(char *lineptr[], int maxlines)
 {
     int nlines = 0, len;
     char line[MAXLEN], *p;
