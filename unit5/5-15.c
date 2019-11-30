@@ -18,17 +18,19 @@ int my_strcmp(char *, char *);
 char *alloc(int);
 int my_getline(char *, int);
 
+
+int numeric = 0, reverse = 1, fold = 0;
+
 int main(int argc, char *argv[])
 {
     int nlines;
-    int numeric = 0, reverse = 0;
 
     for (int i = 1; i < argc; ++i) {
         if (strcmp(argv[i], "-n") == 0) {
             numeric = 1;
         }
         if (strcmp(argv[i], "-r") == 0) {
-            reverse = 1;
+            reverse = -1;
         }
     }
 
@@ -63,15 +65,8 @@ int readlines(char *lineptr[], int maxlines)
 
 void writelines(char *lineptr[], int nlines, int reverse)
 {
-    if (reverse) {
-        char **q = lineptr + nlines;
-        while (nlines-- > 0) {
-            printf("%s\n", *--q);
-        }
-    } else {
-        while (nlines-- > 0) {
-            printf("%s\n", *lineptr++);
-        }
+    while (nlines-- > 0) {
+        printf("%s\n", *lineptr++);
     }
 }
 
@@ -85,7 +80,7 @@ void my_qsort(void *v[], int left, int right, int (*comp)(void *, void *))
     swap(v, left, (left + right) / 2);
     last = left;
     for (i = left + 1; i <= right; i++) {
-        if ((*comp)(v[i], v[left]) < 0) {
+        if (reverse * (*comp)(v[i], v[left]) < 0) {
             swap(v, ++last, i);
         }
     }

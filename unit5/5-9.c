@@ -35,10 +35,10 @@ int day_of_year(int year, int month, int day)
     return day;
 }
 
-void month_day(int year, int yearday, int *pmonth, int *pday)
+int month_day(int year, int yearday, int *pmonth, int *pday)
 {
-    if (yearday < 1 || yearday > 366) {
-        return;
+    if (yearday < 1 || (!leap && yearday > 365) || (leap && yearday > 366)) {
+        return -1;
     }
     int leap, *p;
     leap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
@@ -51,4 +51,6 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 //    *pmonth = p - tab[leap];
     *pmonth = p - *(tab+leap);
     *pday = yearday;
+
+    return 0;
 }
