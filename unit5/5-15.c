@@ -4,48 +4,74 @@
 #include "../common/alloc.c"
 #include "../common/my_numcmp.c"
 #include "../common/my_strcmp.c"
+#include "../common/my_charcmp.c"
 
 //能处理的最大行数量
+#define NUMERIC 1
+#define DECR 2
+#define FOLD 4
 #define MAXLINES 1000
 #define MAXLEN 1000 //每个问本行最大长度
 
+static char option = 0;
+
 char *lineptr[MAXLINES];
 int readlines(char *lineptr[], int maxlines);
-void writelines(char *lineptr[], int maxlines, int reverse);
+void writelines(char *lineptr[], int maxlines, int decr);
 void my_qsort(void *lineptr[], int left, int right, int (*comp)(void *, void *));
 int my_numcmp(char *, char *);
 int my_strcmp(char *, char *);
+int my_charcmp(char *, char *);
 char *alloc(int);
 int my_getline(char *, int);
-
-
-int numeric = 0, reverse = 1, fold = 0;
 
 int main(int argc, char *argv[])
 {
     int nlines;
+    char c, rc = 0;
 
-    for (int i = 1; i < argc; ++i) {
-        if (strcmp(argv[i], "-n") == 0) {
-            numeric = 1;
-        }
-        if (strcmp(argv[i], "-r") == 0) {
-            reverse = -1;
+    while (--argc > 0 && (*++argv)[0] == '-') {
+        while ((c = *++argv[0])) {
+            switch (c) {
+                case 'f':
+                    option |= FOLD;
+                    break;
+                case 'n':
+                    option |= NUMERIC;
+                    break;
+                case 'r':
+                    option |= DECR;
+                    break;
+                default:
+                    printf("sort: illegal option %c\n", c);
+                    argc = 1;
+                    rc = 1;
+                    break;
+            }
         }
     }
 
-    if ((nlines = readlines(lineptr, MAXLINES)) >= 0) {
-        my_qsort(
-                (void **)lineptr,
-                0,
-                nlines - 1,
-                (int (*)(void *, void *))(numeric ? my_numcmp : my_strcmp));
-        writelines(lineptr, nlines, reverse);
-        return 0;
+    if (argc) {
+        printf("Usage: sort -fnr \n");
     } else {
-        printf("input too big to sort\n");
-        return 1;
+        if ((nlines = readlines(lineptr, MAXLINES)) >= 0) {
+            if (option & NUMERIC) {
+                my_qsort((void **)lineptr, 0, nlines - 1, (int (*)(void *, void *))my_numcmp);
+            } else if (option & FOLD) {
+                my_qsort((void **)lineptr, 0, nlines - 1, (int (*)(void *, void *))my_charcmp);
+            } else {
+                my_qsort((void **)lineptr, 0, nlines - 1, (int (*)(void *, void *))my_strcmp);
+            }
+
+            writelines(lineptr, nlines, option & DECR);
+        } else {
+            printf("input too big to sort\n");
+            rc = -1;
+        }
     }
+
+    return rc;
+
 }
 
 int readlines(char *lineptr[], int maxlines)
@@ -63,10 +89,18 @@ int readlines(char *lineptr[], int maxlines)
     return nlines;
 }
 
-void writelines(char *lineptr[], int nlines, int reverse)
+void writelines(char *lineptr[], int nlines, int decr)
 {
-    while (nlines-- > 0) {
-        printf("%s\n", *lineptr++);
+    if (decr) {
+        char **p;
+        p = lineptr + nlines;
+        while (nlines-- >0) {
+            printf("%s\n", *--p);
+        }
+    } else {
+        while (nlines-- > 0) {
+            printf("%s\n", *lineptr++);
+        }
     }
 }
 
@@ -80,7 +114,7 @@ void my_qsort(void *v[], int left, int right, int (*comp)(void *, void *))
     swap(v, left, (left + right) / 2);
     last = left;
     for (i = left + 1; i <= right; i++) {
-        if (reverse * (*comp)(v[i], v[left]) < 0) {
+        if ((*comp)(v[i], v[left]) < 0) {
             swap(v, ++last, i);
         }
     }

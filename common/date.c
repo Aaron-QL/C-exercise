@@ -39,7 +39,7 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 
 int main()
 {
-    int i = day_of_year(2019, 2, 31);
+    int i = day_of_year(2019, 2, 31                                                                                                                                                                                                                                                                                                                                                                                                                                              ````);
     printf("%d\n", i);
 
 
