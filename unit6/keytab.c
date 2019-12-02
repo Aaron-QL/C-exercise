@@ -10,12 +10,11 @@ struct key {
     char *word;
     int count;
 } keytab[] = {
-    "a", 0,
-    "b", 0,
-    "c", 0
+    {"a", 0},
+    {"b", 0},
+    {"c", 0},
 };
 
-int getword(char *, int);
 int binsearch(char *, struct key *, int);
 
 int main()
