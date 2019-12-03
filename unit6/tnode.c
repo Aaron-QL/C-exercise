@@ -58,8 +58,7 @@ void printtree(struct tnode *node)
 int main()
 {
     char *word;
-    struct tnode *root = NULL;
-    struct tnode *t;
+    struct tnode *root;
 
     while (getword(word, MAXWORD) != EOF) {
         if (isalpha(word[0])) {
