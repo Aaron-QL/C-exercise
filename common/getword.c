@@ -3,7 +3,8 @@
 
 int getword(char *word, int limit)
 {
-    int c, *w = word;
+    int c;
+    char *w = word;
     while (isspace(c = getch())) {
 
     }
