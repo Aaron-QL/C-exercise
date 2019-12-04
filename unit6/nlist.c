@@ -68,6 +68,29 @@ void listprint()
     }
 }
 
+void undef(char *name)
+{
+    unsigned hashval = hash(name);
+    struct nlist *np, *prev;
+    for (np = hashtab[hashval]; np != NULL; np = np->next) {
+        if (strcmp(name, np->name) == 0) {
+            break;
+        }
+        prev = np;
+    }
+    if (np == NULL) {
+        return;
+    }
+    if (prev == NULL) {
+        hashtab[hashval] = np->next;
+    } else {
+        prev->next = np->next;
+    }
+    free((void *) np->name);
+    free((void *) np->defn);
+    free((void *) np);
+}
+
 int main() {
 
 }
