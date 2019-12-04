@@ -1,18 +1,16 @@
+#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 
-struct point {
-    int x;
-    int y;
+struct ab {
+    int a;
+    char *b;
 };
-
-struct rect {
-    struct point pt1;
-    struct point pt2;
-};
-
 int main(int argc, char *argv[])
 {
-    struct point pt = {300, 200};
-    struct rect screen = {pt, pt};
-    printf("%d %d\n", screen.pt1.x, screen.pt2.y);
+    struct ab *p;
+//    p = malloc(sizeof(struct ab));
+    printf("%p\n", p);
+    printf("%d", p == NULL);
 }
