@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include "../common/strdup.c"
@@ -53,6 +54,18 @@ struct nlist *install(char *name, char *defn)
         return NULL;
     }
     return np;
+}
+
+void listprint()
+{
+    struct nlist *np;
+    for (int i = 0; i < HASHSIZE; i++) {
+        np = hashtab[i];
+        while (np != NULL) {
+            printf("%s : %s\n", np->name, np->defn);
+            np = np->next;
+        }
+    }
 }
 
 int main() {
