@@ -51,5 +51,4 @@ void filecmp(FILE *fp1, FILE *fp2)
             break;
         }
     } while (lp1 == line1 && lp2 == line2);
-
 }
